@@ -96,8 +96,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (trimmed.length < 3) {
                         return 'Username must be at least 3 characters';
                       }
-                      if (trimmed.toLowerCase() == 'admin') {
-                        return 'The username "admin" is reserved';
+                      final lower = trimmed.toLowerCase();
+                      if (lower == 'admin' || lower == 'vincent29') {
+                        return 'The username "$trimmed" is reserved';
                       }
                       return null;
                     },

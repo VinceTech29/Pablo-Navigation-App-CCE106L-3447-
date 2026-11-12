@@ -10,15 +10,15 @@ void main() {
     DemoAuth.registeredPassword = null;
   });
 
-  Future<void> loginAsAdmin(WidgetTester tester) async {
+  Future<void> loginAsDefaultUser(WidgetTester tester) async {
     await tester.pumpWidget(const StudentApp());
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Username'),
-      'admin',
+      'Vincent29',
     );
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Password'),
-      'admin123',
+      'lourdevincent102006',
     );
     await tester.tap(find.widgetWithText(FilledButton, 'Login'));
     await tester.pumpAndSettle();
@@ -72,9 +72,9 @@ void main() {
       expect(find.text('Welcome Back'), findsOneWidget);
     });
 
-    testWidgets('logs in successfully with default admin credentials',
+    testWidgets('logs in successfully with default credentials',
         (WidgetTester tester) async {
-      await loginAsAdmin(tester);
+      await loginAsDefaultUser(tester);
 
       expect(find.text('Welcome, Student!'), findsOneWidget);
       expect(find.byType(NavigationBar), findsOneWidget);
@@ -143,6 +143,19 @@ void main() {
 
       expect(find.text('The username "admin" is reserved'), findsOneWidget);
 
+      // Reserved username 'Vincent29'
+      await tester.enterText(
+        find.widgetWithText(TextFormField, 'Username'),
+        'Vincent29',
+      );
+      await tester.tap(find.widgetWithText(FilledButton, 'Register'));
+      await tester.pump();
+
+      expect(
+        find.text('The username "Vincent29" is reserved'),
+        findsOneWidget,
+      );
+
       // Valid registration
       await tester.enterText(
         find.widgetWithText(TextFormField, 'Username'),
@@ -176,7 +189,7 @@ void main() {
   group('Navigation, Calculator, Profile, and Social Media Testing', () {
     testWidgets('navigates all 4 destinations and preserves calculator state',
         (WidgetTester tester) async {
-      await loginAsAdmin(tester);
+      await loginAsDefaultUser(tester);
 
       // Home page verification
       expect(find.text('Welcome, Student!'), findsOneWidget);

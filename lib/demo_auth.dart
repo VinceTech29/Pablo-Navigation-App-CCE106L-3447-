@@ -3,7 +3,7 @@ class DemoAuth {
   static String? registeredPassword;
 
   static bool login(String username, String password) {
-    if (username == 'admin' && password == 'admin123') {
+    if (username == 'Vincent29' && password == 'lourdevincent102006') {
       return true;
     }
 
